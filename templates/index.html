@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Индексная страница</title>
+</head>
+<body>
+    <h1>Ввод данных</h1>
+    <p>Загрузите файл и укажите количество дней прогнозирования:</p>
+    <form action="/analysis" method="post" enctype="multipart/form-data">
+        <label for="file">Выберите файл для загрузки:</label>
+        <input type="file" id="file" name="file">
+        <br>
+        <label for="future">Введите дальность предсказания:</label>
+        <input type="number" id="future" name="future" required>
+        <br><br>
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+</html>

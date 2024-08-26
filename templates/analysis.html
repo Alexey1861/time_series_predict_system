@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiple Tabs Example</title>
+    <style>
+        body {font-family: Arial, sans-serif;}
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #ccc;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border-top: none;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+        }
+        table th {
+            background-color: #343a40;
+            color: #fff;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .graph-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .graph-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Анализ данных</h2>
+<p>Click on the buttons inside the tabbed menu:</p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Tab1')">Stat</button>
+  <button class="tablinks" onclick="openTab(event, 'Tab2')">NN</button>
+  <button class="tablinks" onclick="openTab(event, 'Tab3')">CNN</button>
+  <button class="tablinks" onclick="openTab(event, 'Tab4')">LSTM</button>
+</div>
+
+<div id="Tab1" class="tabcontent">
+  <h3>Statistics Data</h3>
+  <div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in data.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="graph-container">
+        <img src="data:image/png;base64,{{ main_graphic }}" alt="Main Graphic">
+    </div>
+  </div>
+</div>
+
+<div id="Tab2" class="tabcontent">
+  <h3>Полносвящная нейронная сеть</h3>
+  <div class="graph-container">
+    <img src="data:image/png;base64,{{ main_dense_graphic }}" alt="Dense Graphic">
+      <a href="/download_dense">Скачать предсказание модели</a>
+  </div>
+</div>
+
+<div id="Tab3" class="tabcontent">
+  <h3>Свёрточная нейронная сеть</h3>
+   <div class="graph-container">
+    <img src="data:image/png;base64,{{ main_cnn_graphic }}" alt="CNN Graphic">
+       <a href="/download_cnn">Скачать предсказание модели</a>
+  </div>
+</div>
+
+<div id="Tab4" class="tabcontent">
+  <h3>Рекуррентная нейронная сеть (LSTM)</h3>
+  <div class="graph-container">
+    <img src="data:image/png;base64,{{ main_lstm_graphic }}" alt="LSTM Graphic">
+      <a href="/download_lstm">Скачать предсказание модели</a>
+  </div>
+</div>
+
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+
+  // Hide all elements with class="tabcontent"
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Remove the class "active" from all elements with class="tablinks"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Set the first tab to be open by default
+document.getElementsByClassName("tablinks")[0].click();
+</script>
+
+</body>
+</html>
